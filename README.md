@@ -39,3 +39,4 @@ The goal of this project is to create a FUSE-based file system that streamlines 
 ## Additional Resources
 
    - [MQH Blog - Writing a Simple Filesystem Using FUSE in C](https://www.maastaar.net/fuse/linux/filesystem/c/2016/05/21/writing-a-simple-filesystem-using-fuse/)
+   - [libfuse - fuse_operations Struct Reference](https://libfuse.github.io/doxygen/structfuse__operations.html)

@@ -35,7 +35,7 @@ WHITE = \033[0;97m
 all: $(NAME)
 
 mount: $(NAME)
-	./$(BIN_DIR)/$(NAME) $(lastword $(MAKECMDGOALS))
+	./$(BIN_DIR)/$(NAME) -f $(lastword $(MAKECMDGOALS))
 
 unmount:
 	fusermount -u $(lastword $(MAKECMDGOALS))
