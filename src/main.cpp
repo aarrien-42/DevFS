@@ -1,12 +1,6 @@
 #define FUSE_USE_VERSION 31
 
-#include <fuse3/fuse.h>
-#include <string.h>
-#include <errno.h>
-#include <stdio.h>
-
-static const char *hello_str = "Hello World!\n";
-static const char *hello_path = "/hello";
+#include "DevFS.hpp"
 
 static int DevFS_getattr(const char *path, struct stat *stbuf, struct fuse_file_info *fi)
 {

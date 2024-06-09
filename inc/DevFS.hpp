@@ -1,6 +1,7 @@
-#ifndef DEVFS_HPP
-#define DEVFS_HPP
+#pragma once
 
+#include <fuse3/fuse.h>
 #include <iostream>
-
-#endif
+#include <string.h>
+#include <errno.h>
+#include <stdio.h>
