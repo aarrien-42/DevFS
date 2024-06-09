@@ -23,13 +23,17 @@ The goal of this project is to create a FUSE-based file system that streamlines 
 ## Dependencies
 
 `sudo apt-get update`
+
 `sudo apt-get install build-essential pkg-config libfuse3-dev fuse3`
 
 ## How to use
 
 `make mount <mount_dir>` *(Creates a virtual mount with extended functionality)*
+
 `make unmount <mount_dir>` *(Unmount the FUSE filesystem)*
+
 `make unmount_all` *(Unmounts all directories mounted with the executable)*
+
 `make status` *(Gives information about the mounted directories, if indeed there are)*
 
 ## Additional Resources
