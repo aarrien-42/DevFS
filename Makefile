@@ -8,12 +8,13 @@ INC_DIR = inc
 BIN_DIR = bin
 
 # FILES
-SRC = $(wildcard $(SRC_DIR)/*cpp)
+SRC = $(wildcard $(SRC_DIR)/*.cpp)
 OBJ = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 # COMPILATION
 CC = c++
-CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS = `pkg-config fuse3 --cflags`
+LDFLAGS = `pkg-config fuse3 --libs`
 RM = rm -rf
 
 # COLORS
@@ -33,15 +34,26 @@ WHITE = \033[0;97m
 
 all: $(NAME)
 
-run: $(NAME)
+mount: $(NAME)
 	./$(BIN_DIR)/$(NAME) $(lastword $(MAKECMDGOALS))
 
-$(NAME) : $(OBJ)
+unmount:
+	fusermount -u $(lastword $(MAKECMDGOALS))
+
+unmount_all:
+	@for dir in $$(mount | grep "$(NAME)" | awk '{print $$3}'); do \
+		fusermount -u "$$dir" || true; \
+	done
+
+status:
+	mount | grep $(NAME)
+
+$(NAME): $(OBJ)
 	mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $(OBJ) -I $(INC_DIR) -o $(BIN_DIR)/$(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -I $(INC_DIR) $(LDFLAGS) -o $(BIN_DIR)/$(NAME)
 	echo "$(YELLOW)Program compiled!$(DEF_COLOR)"
 
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(OBJ_DIR)
 	printf "$(BLUE)Compiling: $< $(DEF_COLOR)"
 	$(CC) $(CFLAGS) -o $@ -c $< -I $(INC_DIR)
@@ -50,9 +62,9 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
 clean:
 	$(RM) $(OBJ_DIR)
 
-fclean: clean
+fclean: clean unmount_all
 	$(RM) $(BIN_DIR)
 
 re: fclean all
 
-.PHONY: all run clean fclean re
+.PHONY: all mount unmount clean fclean re

@@ -20,8 +20,17 @@ The goal of this project is to create a FUSE-based file system that streamlines 
        - `Makefile`
        - `README.md`
 
+## Dependencies
+
+`sudo apt-get update`
+`sudo apt-get install build-essential pkg-config libfuse3-dev fuse3`
+
 ## How to use
 
-`make run <mount_dir>` *(Creates a virtual mount with extended functionality)*
+`make mount <mount_dir>` *(Creates a virtual mount with extended functionality)*
+`make unmount <mount_dir>` *(Unmount the FUSE filesystem)*
+`make status` *(Gives information about the mounted directories, if indeed there are)*
 
 ## Additional Resources
+
+   - [MQH Blog - Writing a Simple Filesystem Using FUSE in C](https://www.maastaar.net/fuse/linux/filesystem/c/2016/05/21/writing-a-simple-filesystem-using-fuse/)
